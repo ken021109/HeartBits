@@ -1,57 +1,91 @@
-I. YÊU CẦU HỆ THỐNG
+# Stroke Alert VN
 
-1. Máy tính đang sử dụng Windows 10/11
-2. Máy tính đã cài đặt Python (Phiên bản 3.9 trở lên, khuyến kích sử dụng bản 3.11).
-3. Khi cài đặt Python, hãy đảm bảo đã tích chọn vào ô:
-   "Add Python to PATH" (Để có thể chạy lệnh Python từ cửa sổ lệnh).
+Ứng dụng Streamlit hỗ trợ sàng lọc nguy cơ đột quỵ. Công cụ này chỉ dùng để tham khảo ban đầu, không thay thế chẩn đoán hoặc hướng dẫn điều trị của bác sĩ.
 
-II. CÁC BƯỚC THỰC HIỆN
+## I. YÊU CẦU HỆ THỐNG
 
+1. Windows 10/11.
+2. Python 3.9 trở lên, khuyến khích Python 3.11.
+3. Khi cài Python, nên chọn `Add Python to PATH`.
 
-BƯỚC 1: CÀI ĐẶT MÔI TRƯỜNG (Chỉ cần làm lần đầu tiên)
-- Tìm file có tên là 'setup.bat'.
-- Nhấp đúp chuột vào file này.
-- Chương trình sẽ tự động:
-    + Tạo môi trường ảo (thư mục 'venv') để giữ cho máy tính sạch sẽ.
-    + Cập nhật công cụ cài đặt (Pip).
-    + Cài đặt thư viện Streamlit.
-- Lưu ý: Trong quá trình cài đặt, màn hình có thể sẽ tạm dừng khoảng 1-2
-  phút (do đang tải dữ liệu ngầm). Vui lòng đợi cho đến khi hiện thông báo
-  "CAI DAT HOAN TAT THANH CONG!".
+## II. CÁCH CÀI ĐẶT
 
-BƯỚC 3: HUẤN LUYỆN MÔ HÌNH (Có thể bỏ qua vì mô hình đã có sẵn)
-- Sau khi cài đặt xong ở Bước 1, tìm file 'training.bat'.
-- Nhấp đúp chuột vào file này.
-- Sau khi chạy xong sẽ có 2 file: `stroke\_final\_model.pkl` và `preprocessor\_meta.pkl`.
+Chạy file:
 
-BƯỚC 3: CHẠY ỨNG DỤNG
-- Sau khi cài đặt xong ở Bước 1, tìm file 'run.bat'.
-- Nhấp đúp chuột vào file này.
-- Một cửa sổ lệnh sẽ hiện ra và trình duyệt web sẽ tự động mở trang web
-  của ứng dụng (thường là địa chỉ http://localhost:8501).
+```bat
+setup.bat
+```
 
-III. CẤU TRÚC THƯ MỤC DỰ ÁN
+Script này sẽ:
 
-stroke_alert_vn/
-├── app.py                              ← Mã nguồn ứng dụng chính
-├── train_model.py                      ← Mã nguồn huấn luyện model
-├── requirements.txt                    ← Danh sách thư viện
-├── readme.txt                          ← Tài liệu hướng dẫn cài đặt
-├── healthcare-dataset-stroke-data.csv  ← Dataset Kaggle (đã có sẵn)
-├── stroke_final_model.pkl              ← Tự động tạo sau khi train (đã có sắn)
-└── preprocessor_meta.pkl               ← Tự động tạo sau khi train (đã có sẵn)
-└── setup.bat                           ← Script cài đặt ban đầu.
-└── run.bat                             ← Script khởi động ứng dụng nhanh
-└── training.bat                        ← Script huấn luyện mô hình
-└── venv/                               ← Thư mục chứa môi trường ảo (tự động tạo ra)
+- Tạo môi trường ảo `venv`.
+- Cập nhật `pip`.
+- Cài các thư viện trong `requirements.txt`.
 
-IV. XỬ LÝ LỖI THƯỜNG GẶP
+## III. CHẠY ỨNG DỤNG
 
-1. Lỗi "Python không được tìm thấy":
-   Hãy cài lại Python và nhớ tích chọn "Add Python to PATH".
- 
-2. Lỗi không chạy được ứng dụng:
-   Hãy chắc chắn bạn đã chạy file 'setup.bat' trước khi chạy 'run.bat' và 'training.bat'.
+Chạy file:
 
-3. Muốn dừng ứng dụng:
-   Đóng trình duyệt hoặc quay lại cửa sổ lệnh và nhấn tổ hợp phím Ctrl + C.
+```bat
+run.bat
+```
+
+Ứng dụng sẽ mở bằng Streamlit, thường tại:
+
+```text
+http://localhost:8501
+```
+
+## IV. HUẤN LUYỆN LẠI MÔ HÌNH
+
+Mô hình đã có sẵn trong dự án. Nếu cần huấn luyện lại, chạy:
+
+```bat
+train.bat
+```
+
+Script này sẽ chạy:
+
+```bat
+python training_logicstic.py
+```
+
+Sau khi train xong, dự án sẽ tạo/cập nhật:
+
+- `stroke_final_model.pkl`
+- `preprocessor_meta.pkl`
+
+## V. CẤU TRÚC DỰ ÁN
+
+```text
+HeartBits v2/
+├── app.py                              Ứng dụng Streamlit chính
+├── training_logicstic.py               Pipeline huấn luyện Logistic Regression
+├── requirements.txt                    Danh sách thư viện Python
+├── readme.txt                          Tài liệu hướng dẫn
+├── healthcare-dataset-stroke-data.csv  Dataset dùng để huấn luyện
+├── stroke_final_model.pkl              Model đã huấn luyện
+├── preprocessor_meta.pkl               Metadata tiền xử lý và thông tin feature
+├── setup.bat                           Script cài đặt môi trường
+├── run.bat                             Script chạy ứng dụng
+├── train.bat                           Script huấn luyện mô hình
+└── venv/                               Môi trường ảo, không đưa vào Git
+```
+
+## VI. XỬ LÝ LỖI THƯỜNG GẶP
+
+### 1. Python không được tìm thấy
+
+Cài lại Python và đảm bảo đã chọn `Add Python to PATH`.
+
+### 2. Không chạy được ứng dụng
+
+Chạy `setup.bat` trước, sau đó chạy lại `run.bat`.
+
+### 3. Thiếu file model
+
+Nếu ứng dụng báo thiếu `stroke_final_model.pkl`, hãy chạy `train.bat` để tạo lại model.
+
+### 4. Muốn dừng ứng dụng
+
+Quay lại cửa sổ lệnh đang chạy Streamlit và nhấn `Ctrl + C`.

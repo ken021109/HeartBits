@@ -1,7 +1,7 @@
 @echo off
 
 :: --- BUOC 1: KIEM TRA MOI TRUONG ---
-if not exist .venv (
+if not exist venv (
     echo [LOI] Khong tim thay thu muc 'venv'.
     echo Vui long chay file cai dat [setup.bat] truoc
     pause
