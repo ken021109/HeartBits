@@ -225,34 +225,6 @@ with st.container(border=True):
 with st.container(border=True):
     card("B  —  Chỉ số sức khỏe")
 
-    # ── Huyết áp ─────────────────────────────────
-    st.markdown("**Huyết áp**")
-    co_may = st.toggle("Tôi vừa đo huyết áp và có kết quả", value=True)
-
-    ha_sys = None
-    if co_may:
-        with st.expander("Hướng dẫn đọc số đo", expanded=False):
-            st.markdown(
-                "- Nghỉ ngơi 5 phút trước khi đo  \n"
-                "- Ngồi thẳng, tay đặt ngang tim  \n"
-                "- **Số TRÊN** = Tâm thu (SYS)  \n"
-                "- **Số DƯỚI** = Tâm trương (DIA)"
-            )
-        c1, c2 = st.columns(2)
-        with c1:
-            ha_sys = st.number_input("Số TRÊN — Tâm thu (mmHg)", 80, 260, 120, step=1)
-        with c2:
-            st.number_input("Số DƯỚI — Tâm trương (mmHg)", 40, 160, 80, step=1)
-        if ha_sys >= 140:
-            st.warning(
-                f"Huyết áp tâm thu {ha_sys} mmHg — cao hơn ngưỡng bình thường (≥ 140 mmHg).",
-                icon="⚠️",
-            )
-    else:
-        st.info("Thông tin bệnh nền bên dưới sẽ được dùng để đánh giá thay thế.", icon="ℹ️")
-
-    st.divider()
-
     # ── Đường huyết ──────────────────────────────
     st.markdown("**Đường huyết**")
     co_glucose = st.toggle("Tôi biết chỉ số đường huyết", value=False)
@@ -303,12 +275,6 @@ with st.container(border=True):
         hypertension  = st.checkbox("Cao huyết áp")
     with c_b2:
         heart_disease = st.checkbox("Bệnh tim mạch")
-
-    if ha_sys is not None and ha_sys >= 140 and not hypertension:
-        st.caption(
-            "💡 Huyết áp đo được cao — nếu đã được bác sĩ chẩn đoán cao huyết áp, "
-            "hãy tích vào ô trên."
-        )
 
 
 # ╔══════════════════════════════════════════════════════════════════════╗
